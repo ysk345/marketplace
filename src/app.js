@@ -13,12 +13,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //connection
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-const PORT = process.env.PORT || 3000;
-const CONNECTION = process.env.CONNECTION;
+// if (process.env.NODE_ENV !== "production") {
+//   require("dotenv").config();
+// }
+mongoose.connect('mongodb+srv://ysk345:2wTYkXrUEqf8hfcP@cluster0.u7rsivo.mongodb.net/?retryWrites=true&w=majority',
+{useNewUrlParser:true});
+const connection = mongoose.connection;
+connection.once('open',()=>{
+    console.log("DB connected......")
+})
 
+const PORT = process.env.PORT || 3000;
+//const CONNECTION = process.env.CONNECTION;
 
 
 /*-------------------Endpoints----------------*/
@@ -115,18 +121,21 @@ app.delete("/api/products", async (req, res) => {
 });
 
 //connect to database
-const start = async () => {
-  try {
-    //mongodb connection string
-    await mongoose.connect(CONNECTION);
+// const start = async () => {
+//   try {
+//     //mongodb connection string
+//     await mongoose.connect(CONNECTION);
     
-    //start the server launch the app
-    app.listen(PORT, () => {
-      console.log("App listening on port " + PORT);
-    });
-  } catch (e) {
-    console.log(e.message); //show error message
-  }
-};
+//     //start the server launch the app
+//     app.listen(PORT, () => {
+//       console.log("App listening on port " + PORT);
+//     });
+//   } catch (e) {
+//     console.log(e.message); //show error message
+//   }
+// };
+//start();
 
-start();
+app.listen(PORT,()=>{
+  console.log("App listening on port " + PORT);
+});
