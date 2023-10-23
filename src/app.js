@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // if (process.env.NODE_ENV !== "production") {
 //   require("dotenv").config();
 // }
-mongoose.connect('mongodb+srv://ysk345:2wTYkXrUEqf8hfcP@cluster0.u7rsivo.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://<username>:<password>@cluster0.u7rsivo.mongodb.net/?retryWrites=true&w=majority',
 {useNewUrlParser:true});
 const connection = mongoose.connection;
 connection.once('open',()=>{
